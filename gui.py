@@ -30,6 +30,9 @@ class Point:
     def __init__(self,x,y):
         self.x = x
         self.y = y
+    
+    def __repr__(self):
+        return f"({self.x}, {self.y})"
 
 class Line:
     def __init__(self, p1, p2):
@@ -45,6 +48,8 @@ class Line:
             fill=fill_color,
             width = 2
         )
+    def __repr__(self):
+        return f"Point A ({self.p1.x},{self.p1.y}) | Point B ({self.p2.x},{self.p2.y})"
 
 class Cell:
     def __init__(self, x1, y1, x2, y2, window_class):
@@ -58,6 +63,20 @@ class Cell:
         self.has_bottom_wall = True
         self._win = window_class
         self.color = "black"
+        self._pointCenter = Point((x1+x2)/2, (y1+y2)/2)
+
+    def __repr__(self): 
+        walls = ["L", "R", "T", "B"]   
+        if self.has_left_wall == False:
+            walls[0] = " "
+        if self.has_right_wall == False:
+            walls[1] = " "
+        if self.has_top_wall == False:
+            walls[2] = " "
+        if self.has_bottom_wall == False:
+            walls[3] = " "
+            
+        return f"TL: {self._pointTL}, TR: {self._pointTR}, BL: {self._pointBL}, BR: {self._pointBR}, Center: {self._pointCenter}, Walls: {walls}"
     
     def draw(self):
         if self.has_left_wall == True:
@@ -72,7 +91,19 @@ class Cell:
         if self.has_bottom_wall == True:
             bot_wall = Line(self._pointBL, self._pointBR)
             self._win.draw_line(bot_wall, self.color)
-            
+        
+    def provide_center(self):
+        return self._pointCenter
+    
+    def draw_move(self, to_cell, undo=False):
+        line = Line(self._pointCenter, to_cell.provide_center())
+        print(self,'\n',to_cell)
+        if undo == True:
+            self._win.draw_line(line, "red")
+        if undo == False:
+            self._win.draw_line(line, "gray")
+
+
 
         
 

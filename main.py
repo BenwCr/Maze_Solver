@@ -2,35 +2,28 @@ from gui import *
 def main():
     win = Window(800,600)
 
-    P1 = Point(5, 200)
-    P2 = Point(200, 5)
-    P3 = Point(430, 290)
-    P4 = Point(290,430)
-    L1 = Line(P1, P4)
-    L2 = Line(P3,P4)
-
-    win.draw_line(L1, "black")
-    win.draw_line(L2,"red")
 
 
-    #C1 = Cell(100,100,200,200,win)
-    #C1.draw()
+    c1 = Cell(50, 50, 100, 100, win)
+    c1.has_left_wall = False
+    c1.draw()
 
-    c = Cell(50, 50, 100, 100, win)
-    c.has_left_wall = False
-    c.draw()
+    c2 = Cell(125, 125, 200, 200, win)
+    c2.has_right_wall = False
+    c2.draw()
 
-    c = Cell(125, 125, 200, 200, win)
-    c.has_right_wall = False
-    c.draw()
+    c3 = Cell(225, 225, 250, 250, win)
+    c3.has_bottom_wall = False
+    c3.draw()
 
-    c = Cell(225, 225, 250, 250, win)
-    c.has_bottom_wall = False
-    c.draw()
+    c4 = Cell(300, 300, 500, 500, win)
+    c4.has_top_wall = False
+    c4.draw()
 
-    c = Cell(300, 300, 500, 500, win)
-    c.has_top_wall = False
-    c.draw()
+    c2.draw_move(c1)
+    c3.draw_move(c4,undo=True)
+
+
 
 
     win.wait_for_close()
