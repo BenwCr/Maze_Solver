@@ -76,7 +76,8 @@ class Cell:
         if self.has_bottom_wall == False:
             walls[3] = " "
             
-        return f"TL: {self._pointTL}, TR: {self._pointTR}, BL: {self._pointBL}, BR: {self._pointBR}, Center: {self._pointCenter}, Walls: {walls}"
+        #return f"TL: {self._pointTL}, TR: {self._pointTR}, BL: {self._pointBL}, BR: {self._pointBR}, Center: {self._pointCenter}, Walls: {walls}"
+        return f"{self._pointTL}"
     
     def draw(self):
         if self.has_left_wall == True:
@@ -97,7 +98,6 @@ class Cell:
     
     def draw_move(self, to_cell, undo=False):
         line = Line(self._pointCenter, to_cell.provide_center())
-        print(self,'\n',to_cell)
         if undo == True:
             self._win.draw_line(line, "red")
         if undo == False:
